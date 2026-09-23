@@ -14,6 +14,7 @@ import { Route as IamRouteRouteImport } from './routes/iam/route'
 import { Route as IamLoginRouteImport } from './routes/iam/login'
 import { Route as IamRegisterRouteImport } from './routes/iam/register'
 import { Route as IamVerifyEmailRouteImport } from './routes/iam/verify-email'
+import { Route as ProfileIndexRouteImport } from './routes/profile/index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -40,6 +41,11 @@ const IamVerifyEmailRoute = IamVerifyEmailRouteImport.update({
   path: '/verify-email',
   getParentRoute: () => IamRouteRoute,
 } as any)
+const ProfileIndexRoute = ProfileIndexRouteImport.update({
+  id: '/profile/',
+  path: '/profile/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -47,6 +53,7 @@ export interface FileRoutesByFullPath {
   '/iam/login': typeof IamLoginRoute
   '/iam/register': typeof IamRegisterRoute
   '/iam/verify-email': typeof IamVerifyEmailRoute
+  '/profile/': typeof ProfileIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,6 +61,7 @@ export interface FileRoutesByTo {
   '/iam/login': typeof IamLoginRoute
   '/iam/register': typeof IamRegisterRoute
   '/iam/verify-email': typeof IamVerifyEmailRoute
+  '/profile': typeof ProfileIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,12 +70,25 @@ export interface FileRoutesById {
   '/iam/login': typeof IamLoginRoute
   '/iam/register': typeof IamRegisterRoute
   '/iam/verify-email': typeof IamVerifyEmailRoute
+  '/profile/': typeof ProfileIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/iam' | '/iam/login' | '/iam/register' | '/iam/verify-email'
+  fullPaths:
+    | '/'
+    | '/iam'
+    | '/iam/login'
+    | '/iam/register'
+    | '/iam/verify-email'
+    | '/profile/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/iam' | '/iam/login' | '/iam/register' | '/iam/verify-email'
+  to:
+    | '/'
+    | '/iam'
+    | '/iam/login'
+    | '/iam/register'
+    | '/iam/verify-email'
+    | '/profile'
   id:
     | '__root__'
     | '/'
@@ -75,11 +96,13 @@ export interface FileRouteTypes {
     | '/iam/login'
     | '/iam/register'
     | '/iam/verify-email'
+    | '/profile/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   IamRouteRoute: typeof IamRouteRouteWithChildren
+  ProfileIndexRoute: typeof ProfileIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -119,6 +142,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IamVerifyEmailRouteImport
       parentRoute: typeof IamRouteRoute
     }
+    '/profile/': {
+      id: '/profile/'
+      path: '/profile'
+      fullPath: '/profile/'
+      preLoaderRoute: typeof ProfileIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -141,6 +171,7 @@ const IamRouteRouteWithChildren = IamRouteRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   IamRouteRoute: IamRouteRouteWithChildren,
+  ProfileIndexRoute: ProfileIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

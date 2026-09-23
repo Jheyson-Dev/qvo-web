@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { User, Settings, LogOut } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -66,7 +67,10 @@ export function UserDropdown() {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem className="cursor-pointer">
+          <DropdownMenuItem
+            className="cursor-pointer"
+            render={<Link to="/profile" />}
+          >
             <User className="mr-2 h-4 w-4" />
             <span>My Account</span>
           </DropdownMenuItem>
