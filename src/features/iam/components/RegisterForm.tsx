@@ -92,7 +92,7 @@ export function RegisterForm() {
           <Sparkles className="w-4 h-4" />
         </div>
         <span className="text-xl font-bold tracking-tight text-foreground">
-          QVO.
+          QVO
         </span>
       </div>
 

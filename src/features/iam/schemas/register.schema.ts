@@ -4,7 +4,8 @@ export const registerFrontendSchema = z
   .object({
     email: z
       .string()
-      .email({ message: "El formato del correo electrónico es inválido" }),
+      .email({ message: "El formato del correo electrónico es inválido" })
+      .toLowerCase(),
     password: z
       .string()
       .min(8, { message: "La contraseña debe tener al menos 8 caracteres" })
@@ -16,6 +17,7 @@ export const registerFrontendSchema = z
     username: z
       .string()
       .min(3, { message: "Debe tener al menos 3 caracteres" })
+      .max(32, { message: "Debe tener un máximo de 32 caracteres" })
       .regex(/^[a-zA-Z0-9_-]+$/, {
         message: "Solo puede contener letras, números, guiones y guiones bajos",
       }),
